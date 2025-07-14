@@ -25,7 +25,7 @@ export const PortraitVideo: React.FC<z.infer<typeof shortVideoSchema>> = ({
   const frame = useCurrentFrame();
   const { fps } = useVideoConfig();
 
-  const captionBackgroundColor = config.captionBackgroundColor ?? "blue";
+  const captionBackgroundColor = config.captionBackgroundColor ?? "red";
 
   const activeStyle = {
     backgroundColor: captionBackgroundColor,
@@ -104,6 +104,8 @@ export const PortraitVideo: React.FC<z.infer<typeof shortVideoSchema>> = ({
                       position: "absolute",
                       left: 0,
                       width: "100%",
+                      backgroundColor: captionBackgroundColor,
+                      textAlign: "center",
                       ...captionStyle,
                     }}
                   >

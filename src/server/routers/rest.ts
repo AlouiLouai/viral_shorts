@@ -52,7 +52,7 @@ export class APIRouter {
           );
 
           res.status(201).json({
-            videoId,
+            id: videoId,
           });
         } catch (error: unknown) {
           logger.error(error, "Error validating input");

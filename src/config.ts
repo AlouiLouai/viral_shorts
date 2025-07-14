@@ -38,6 +38,7 @@ export class Config {
   public packageDirPath: string;
   public musicDirPath: string;
   public pexelsApiKey: string;
+  public host: string;
   public logLevel: pino.Level;
   public whisperVerbose: boolean;
   public port: number;
@@ -79,6 +80,7 @@ export class Config {
     this.whisperVerbose = process.env.WHISPER_VERBOSE === "true";
     this.port = process.env.PORT ? parseInt(process.env.PORT) : defaultPort;
     this.runningInDocker = process.env.DOCKER === "true";
+    this.host = this.runningInDocker ? "host.docker.internal" : "localhost";
     this.devMode = process.env.DEV === "true";
 
     if (process.env.WHISPER_MODEL) {

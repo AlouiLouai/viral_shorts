@@ -99,10 +99,12 @@ export const renderConfig = z.object({
   captionPosition: z
     .nativeEnum(CaptionPositionEnum)
     .optional()
+    .default(CaptionPositionEnum.center)
     .describe("Position of the caption in the video"),
   captionBackgroundColor: z
     .string()
     .optional()
+    .default("red")
     .describe(
       "Background color of the caption, a valid css color, default is blue",
     ),

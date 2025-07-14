@@ -135,34 +135,11 @@ export class ShortCreator {
     await this.ffmpeg.saveToMp3(audioStream, tempMp3Path);
     fs.copySync(videoPath, tempVideoPath);
 
-    scenes.push({
+    await this.ffmpeg.burnSubtitles(
+      tempVideoPath,
+      tempMp3Path,
       captions,
-      video: `http://localhost:${this.config.port}/api/tmp/${tempVideoFileName}`,
-      audio: {
-        url: `http://localhost:${this.config.port}/api/tmp/${tempMp3FileName}`,
-        duration: audioLength,
-      },
-    });
-
-    const selectedMusic = this.findMusic(15, config.music);
-    logger.debug({ selectedMusic }, "Selected music for the video");
-
-    await this.remotion.render(
-      {
-        music: selectedMusic,
-        scenes,
-        config: {
-          durationMs: 15000,
-          paddingBack: config.paddingBack,
-          ...{
-            captionBackgroundColor: config.captionBackgroundColor,
-            captionPosition: config.captionPosition,
-          },
-          musicVolume: config.musicVolume,
-        },
-      },
-      videoId,
-      orientation,
+      this.getVideoPath(videoId),
     );
 
     for (const file of tempFiles) {
