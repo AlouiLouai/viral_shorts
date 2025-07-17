@@ -121,8 +121,8 @@ Title: Short Video Subtitles
 ScriptType: v4.00+
 WrapStyle: 0
 ScaledBorderAndShadow: yes
-PlayResX: 1280
-PlayResY: 720
+PlayResX: 720
+PlayResY: 1280
 
 [V4+ Styles]
 Format: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding
@@ -159,7 +159,10 @@ Format: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text
         .input(audioPath)
         .videoCodec("libx264")
         .audioCodec("aac")
-        .outputOptions(`-vf ass=${subtitlesPath}`)
+        .outputOptions([
+          `-vf ass=${subtitlesPath},scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280`,
+          "-aspect 9:16",
+        ])
         .on("end", () => {
           logger.debug("Subtitles burned successfully");
           resolve(outputPath);
